@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/merlintang/SparkDistributedMatrix.svg?branch=branch-2.1)](https://travis-ci.org/merlintang/SparkDistributedMatrix)
+
 New branch of MatFast project. 
 The code base moves from Spark-1.5.0 to Spark-2.1.
 We have changed the project name to "MatFast". Furthermore, 
