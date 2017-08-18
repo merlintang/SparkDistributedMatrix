@@ -74,19 +74,19 @@ private[matfast] object MatfastSerializer {
   }
 
   def serialize[T: ClassTag](o: T): Array[Byte] = {
-    acquireRelease { k=>
+    acquireRelease { k =>
       k.serialize(o).array()
     }
   }
 
   def deserialize[T: ClassTag](bytes: Array[Byte]): T =
-    acquireRelease { k=>
+    acquireRelease { k =>
       k.deserialize[T](ByteBuffer.wrap(bytes))
     }
 }
 
 private[matfast] class JavaBigDecimalSerializer extends Serializer[java.math.BigDecimal] {
-  def write(kryo: Kryo, output: Output, bd: java.math.BigDecimal) = {
+  def write(kryo: Kryo, output: Output, bd: java.math.BigDecimal) {
     output.writeString(bd.toString)
   }
 

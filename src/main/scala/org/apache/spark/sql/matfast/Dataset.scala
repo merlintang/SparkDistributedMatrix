@@ -86,8 +86,9 @@ class Dataset[T] private[matfast]
   def multiplyElement(leftRowNum: Long, leftColNum: Long,
                       right: DataFrame,
                       rightRowNum: Long, rightColNum: Long,
-                      blkSize: Int, data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame = withPlan {
-    MatrixElementMultiplyOperator(this.logicalPlan, leftRowNum,
+                      blkSize: Int,
+                      data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame =
+        withPlan {MatrixElementMultiplyOperator(this.logicalPlan, leftRowNum,
       leftColNum, right.logicalPlan, rightRowNum, rightColNum, blkSize)
   }
 
@@ -95,28 +96,35 @@ class Dataset[T] private[matfast]
                     right: DataFrame,
                     rightRowNum: Long, rightColNum: Long,
                     blkSize: Int,
-                    data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame = withPlan {
-    MatrixElementDivideOperator(this.logicalPlan, leftRowNum, leftColNum, right.logicalPlan, rightRowNum, rightColNum, blkSize)
+                    data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame
+        = withPlan {
+    MatrixElementDivideOperator(this.logicalPlan,
+      leftRowNum, leftColNum, right.logicalPlan, rightRowNum, rightColNum, blkSize)
   }
 
   def matrixMultiply(leftRowNum: Long, leftColNum: Long,
                      right: DataFrame,
                      rightRowNum: Long, rightColNum: Long,
                      blkSize: Int,
-                     data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame = withPlan {
-    MatrixMatrixMultiplicationOperator(this.logicalPlan, leftRowNum, leftColNum, right.logicalPlan, rightRowNum, rightColNum, blkSize)
+                     data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame =
+          withPlan {
+    MatrixMatrixMultiplicationOperator(this.logicalPlan, leftRowNum, leftColNum,
+      right.logicalPlan, rightRowNum, rightColNum, blkSize)
   }
 
   def matrixRankOneUpdate(leftRowNum: Long, leftColNum: Long,
                           right: DataFrame,
                           rightRowNum: Long, rightColNum: Long,
                           blkSize: Int,
-                          data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame = withPlan {
-    RankOneUpdateOperator(this.logicalPlan, leftRowNum, leftColNum, right.logicalPlan, rightRowNum, rightColNum, blkSize)
+                          data: Seq[Attribute] = this.queryExecution.analyzed.output): DataFrame =
+            withPlan {
+    RankOneUpdateOperator(this.logicalPlan, leftRowNum, leftColNum,
+      right.logicalPlan, rightRowNum, rightColNum, blkSize)
   }
 
   private def getAttributes(keys: Array[String],
-                            attrs: Seq[Attribute] = this.queryExecution.analyzed.output): Array[Attribute] = {
+                            attrs: Seq[Attribute] = this.queryExecution.analyzed.output):
+        Array[Attribute] = {
     keys.map(key => {
       val tmp = attrs.indexWhere(_.name == key)
       if (tmp >= 0) attrs(tmp)
@@ -130,7 +138,8 @@ class Dataset[T] private[matfast]
 }
 
 private[matfast] object Dataset {
-  def apply[T: Encoder](sparkSession: matfast.MatfastSession, logicalPlan: LogicalPlan): Dataset[T] = {
+  def apply[T: Encoder](sparkSession: matfast.MatfastSession,
+                        logicalPlan: LogicalPlan): Dataset[T] = {
     new Dataset(sparkSession, logicalPlan, implicitly[Encoder[T]])
   }
 
