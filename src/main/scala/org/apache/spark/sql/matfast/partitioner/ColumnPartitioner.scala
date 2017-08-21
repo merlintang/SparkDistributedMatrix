@@ -21,7 +21,7 @@ import org.apache.spark.{Partitioner, SparkConf}
 import org.apache.spark.rdd.{RDD, ShuffledRDD}
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.matfast.util.MatfastSerializer
-
+// scalastyle:off
 class ColumnPartitioner(partitions: Int) extends Partitioner{
 
   require(partitions >= 0, s"Number of partitions cannot be negative but found $partitions")

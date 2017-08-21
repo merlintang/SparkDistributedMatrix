@@ -22,7 +22,8 @@ import org.apache.spark.sql.execution.SparkPlan
 
 abstract class MatfastPlan extends SparkPlan{
   @transient
-  protected[matfast] final val matfastSessionState = MatfastSession.getActiveSession.map(_.sessionState).orNull
+  protected[matfast] final val matfastSessionState
+    = MatfastSession.getActiveSession.map(_.sessionState).orNull
 
   protected override def sparkContext = MatfastSession.getActiveSession.map(_.sparkContext).orNull
 }

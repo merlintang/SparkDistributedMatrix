@@ -491,7 +491,8 @@ case class RankOneUpdateExecution(left: SparkPlan,
   protected override def doExecute(): RDD[InternalRow] = {
     require(rightRowNum == 1, s"Vector column size is not 1, but #cols = $rightRowNum")
     require(leftRowNum == rightRowNum, s"Dimension not match for matrix addition, A.nrows" +
-      s" = $leftRowNum, " + s"A.ncols = ${leftColNum}, B.nrows = $rightRowNum, B.ncols = $rightColNum")
+      s" = $leftRowNum, " +
+      s"A.ncols = ${leftColNum}, B.nrows = $rightRowNum, B.ncols = $rightColNum")
     MatfastExecutionHelper.matrixRankOneUpdate(left.execute(), right.execute())
   }
 }

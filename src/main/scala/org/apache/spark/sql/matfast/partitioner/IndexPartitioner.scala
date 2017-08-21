@@ -18,6 +18,7 @@
 package org.apache.spark.sql.matfast.partitioner
 
 import org.apache.spark.Partitioner
+// scalastyle:off
 
 class IndexPartitioner(partitions: Int) extends Partitioner{
 

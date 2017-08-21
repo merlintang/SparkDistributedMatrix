@@ -24,10 +24,11 @@ import org.apache.spark.sql.matfast.util.MatfastSerializer
 
 
 /**
-  * To make load-balancing, we adopt block-cyclic distribution strategy.
-  * For further information, please refer to Section 1.6 from "Matrix Computation" (4th edition)
-  * by Gene Golub and Charles Van Loan.
-  */
+ * To make load-balancing, we adopt block-cyclic distribution strategy.
+ * For further information, please refer to Section 1.6 from "Matrix Computation" (4th edition)
+ * by Gene Golub and Charles Van Loan.
+ */
+
 class BlockCyclicPartitioner(val ROW_BLKS: Int,
                              val COL_BLKS: Int,
                              val ROW_BLKS_PER_PARTITION: Int,
@@ -35,9 +36,11 @@ class BlockCyclicPartitioner(val ROW_BLKS: Int,
 
   require(ROW_BLKS > 0, s"Number of row blocks should be larger than 0, but found $ROW_BLKS")
   require(COL_BLKS > 0, s"Number of col blocks should be larger than 0, but found $COL_BLKS")
-  require(ROW_BLKS_PER_PARTITION > 0, s"Number of row blocks per partition should be larger than 0, " +
+  require(ROW_BLKS_PER_PARTITION > 0,
+    s"Number of row blocks per partition should be larger than 0, " +
     s"but found $ROW_BLKS_PER_PARTITION")
-  require(COL_BLKS_PER_PARTITION > 0, s"Number of col blocks per partition should be larger than 0, " +
+  require(COL_BLKS_PER_PARTITION > 0,
+    s"Number of col blocks per partition should be larger than 0, " +
     s"but found $COL_BLKS_PER_PARTITION")
 
   private val row_partition_num = math.ceil(ROW_BLKS * 1.0 / ROW_BLKS_PER_PARTITION).toInt
@@ -50,8 +53,10 @@ class BlockCyclicPartitioner(val ROW_BLKS: Int,
 
   override def getPartition(key: Any): Int = {
     key match {
-      case (i: Int, j : Int) => ((i % num_row_part) * col_partition_num + (j % num_col_part)) % numPartitions
-      case (i: Int, j: Int, _: Int) => ((i % num_row_part) * col_partition_num + (j % num_col_part)) % numPartitions
+      case (i: Int, j : Int) =>
+        ((i % num_row_part) * col_partition_num + (j % num_col_part)) % numPartitions
+      case (i: Int, j: Int, _: Int) =>
+        ((i % num_row_part) * col_partition_num + (j % num_col_part)) % numPartitions
       case _ => throw new IllegalArgumentException(s"Unrecognized key: $key")
     }
   }

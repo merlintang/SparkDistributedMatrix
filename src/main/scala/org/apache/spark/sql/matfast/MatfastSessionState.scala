@@ -38,7 +38,7 @@ private[matfast] class MatfastSessionState (matfastSession: MatfastSession)
   protected[matfast] lazy val matfastOptimizer: MatfastOptimizer = new MatfastOptimizer
 
   /**
-    * Planner that takes into account spatial opt strategies.
+    * Planner that takes into account matrix opt strategies.
     */
   protected[matfast] val matfastPlanner: sparkexecution.SparkPlanner = {
     new MatfastPlanner(matfastSession, conf, experimentalMethods.extraStrategies)

@@ -22,7 +22,7 @@ import org.apache.spark.sql.execution.{SparkPlan, QueryExecution => SQLQueryExec
 import org.apache.spark.sql.matfast.MatfastSession
 
 class QueryExecution(val matfastSession: MatfastSession, val matfastLogical: LogicalPlan)
-  extends SQLQueryExecution(matfastSession, matfastLogical){
+  extends SQLQueryExecution(matfastSession, matfastLogical) {
 
   lazy val matrixData: LogicalPlan = {
     assertAnalyzed()
@@ -30,7 +30,8 @@ class QueryExecution(val matfastSession: MatfastSession, val matfastLogical: Log
   }
 
   override lazy val optimizedPlan: LogicalPlan = {
-    matfastSession.sessionState.matfastOptimizer.execute(matfastSession.sessionState.getSQLOptimizer.execute(matrixData))
+    matfastSession.sessionState.matfastOptimizer.execute(
+      matfastSession.sessionState.getSQLOptimizer.execute(matrixData))
   }
 
   override lazy val sparkPlan: SparkPlan = {
