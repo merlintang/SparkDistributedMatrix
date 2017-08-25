@@ -7,7 +7,7 @@ A library to support distributed matrix computation for machine learning and dat
 
 ## Build and run matFast
 
-###matFast is built using [Apache Maven](http://maven.apache.org/).
+matFast is built using [Apache Maven](http://maven.apache.org/).
 To build matFast and its example programs, run:
 
     mvn clean package -DskipTests
@@ -17,9 +17,11 @@ if you want to specify other version, use maven `-D` parameter such as:
 
     mvn clean package -Dscala.binary.version=2.10 -Dspark.version=2.1.0
 
-### matFast also support SBT based.
+matFast also support SBT based.
 To build matFast and its example programs, run:
+
     sbt package
+
     sbt assembly
 
 ## Reference
@@ -36,5 +38,5 @@ design decisions can be found in the paper "In-memory distributed matrix
 computation processing and optimization". We'll continue updating 
 the code base to embrace more useful features.
 
-＃＃Contact & Acknowledgements
+## Contact & Acknowledgements
 
